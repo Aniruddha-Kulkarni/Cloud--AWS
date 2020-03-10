@@ -1,0 +1,22 @@
+import boto3
+from botocore.exceptions import NoCredentialsError
+
+Access_key='Insert your access key'
+secret_key='ZUki******* "Insert your secret key"'
+
+def upload_to_aws(local_file, bucket, s3_file):
+    s3 = boto3.client('s3', aws_access_key_id=Access_key,
+                      aws_secret_access_key=secret_key)
+    try:
+        s3.upload_file(local_file, bucket, s3_file)
+        print("Upload Successful")
+        return True
+        print("The file was not found")
+    except FileNotFoundError:
+        return False
+    except NoCredentialsError:
+        print("Credentials not available")
+        return False
+
+
+uploaded = upload_to_aws('C:\\Users\\anuk2\\Desktop\\test.py.txt', 'anitstbucket', 'second_file')
